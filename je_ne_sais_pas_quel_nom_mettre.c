@@ -15,7 +15,9 @@ int main (int argc, char **argv)
 		for(i=0; i<numprocs; i++)
 			{
 				j=(i+1)%numprocs;
-				MPI_Sendrecv(&pinkie_pie, 1, MPI_INT, i, 42, &apple_jack, 1, 
-				        MPI_INT, j, 42, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+				if(myid==i)
+					MPI_Sendrecv(&pinkie_pie, 1, MPI_INT, j, 42, &apple_jack, 1, 
+							MPI_INT, i, 42, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 			}
+		MPI_Finalize();
 	}
